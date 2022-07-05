@@ -8,7 +8,9 @@ type ButtonProps = {
 
 function AddButton({modalActive, setModalActive}: ButtonProps):JSX.Element {
   return (
-    <button className="add-company-btn" onClick={() => setModalActive(true)}>Добавить компанию</button>
+    <button className="add-company-btn" onClick={() => setModalActive(true)}>
+      Добавить компанию
+    </button>
   );
 }
 

@@ -16,8 +16,7 @@ type GetDataProps = {
   options: RequestInit,
    company: TableFields,
     companies: TableFields[],
-  setCompanies: React.Dispatch<SetStateAction<TableFields[]>>,
-  setEditingId : React.Dispatch<React.SetStateAction<string>>
+  setCompanies: React.Dispatch<SetStateAction<TableFields[]>>
 }
 
 type ReadOnlyFormProps = {
@@ -27,7 +26,12 @@ type ReadOnlyFormProps = {
    setEditingId : React.Dispatch<React.SetStateAction<string>>
   }
 
-type LoadingDataProps = ReadOnlyFormProps;
+type LoadingDataProps = {
+  company: TableFields,
+   companies: TableFields[],
+  setCompanies: React.Dispatch<SetStateAction<TableFields[]>>,
+  //  setEditingId : React.Dispatch<React.SetStateAction<string>>
+  };
 
 function TableCompany({companies, setCompanies, editingId, setEditingId} : TableCompanyProps):JSX.Element {
   const dataCompanies = companies.map((company) => {
@@ -75,7 +79,7 @@ function ReadOnlyForm({company, companies, setCompanies, setEditingId}
       <td>{company.restrictions}</td>
       <td><p className='inn-value'>{company.inn}</p>
         <button className='loading-button' onClick={() =>
-          LoadingData({company, setCompanies, companies, setEditingId})}
+          LoadingData({company, setCompanies, companies})}
         ><div>Загрузить</div>
         </button>
       </td>
@@ -87,7 +91,7 @@ function ReadOnlyForm({company, companies, setCompanies, setEditingId}
   );
 }
 
-function LoadingData({company, companies, setCompanies, setEditingId}: LoadingDataProps):void
+function LoadingData({company, companies, setCompanies}: LoadingDataProps):void
 {
   if(company !== undefined){
     const url = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party';
@@ -104,11 +108,11 @@ function LoadingData({company, companies, setCompanies, setEditingId}: LoadingDa
       body: JSON.stringify({query: query})
     };
 
-    GetData({url, options, company, companies, setCompanies, setEditingId});
+    GetData({url, options, company, companies, setCompanies});
   }
 }
 
-function GetData({url, options, company, companies, setCompanies, setEditingId}: GetDataProps){
+function GetData({url, options, company, companies, setCompanies}: GetDataProps){
   const newCompany : TableFields = {
     name : '',
     adress : '',
@@ -129,7 +133,6 @@ function GetData({url, options, company, companies, setCompanies, setEditingId}:
     .finally(() => {
       const newCompanies = companies.filter((com)=> com.id !== company.id);
       companies = [...newCompanies, newCompany];
-      setEditingId('');
       setCompanies(companies);
     });
 }
