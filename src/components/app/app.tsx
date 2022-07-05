@@ -6,7 +6,7 @@ import TableFields from '../types/table-fields';
 import { nanoid } from '@reduxjs/toolkit';
 
 function App(): JSX.Element {
-  const [modalActive, setModalActive] = useState(true);
+  const [modalActive, setModalActive] = useState(false);
   const firstCompany : TableFields = {
     name: 'Данил',
     adress: 'Коминтерна 5',

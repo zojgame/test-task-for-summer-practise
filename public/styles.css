@@ -20,8 +20,17 @@ body {
     outline: none; 
     border:none;
 }
+
+table{
+    border-spacing: 0.5vw;
+}
+
+table td{
+    padding: 3vw;
+}
+
 .add-company-btn {
-    color: #232323;
+    color: white;
     background: transparent;
     border: 1px solid #232323;
     position: relative;
@@ -34,17 +43,18 @@ body {
 }
 .add-company-btn:before {
     content: "";
+    
     position: absolute;
     top: 5px;
     left: 5px;
     width: 100%;
     height: 100%;
     background: rgb(34,193,195);
-/* background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(224,253,45,1) 100%); */
     z-index: -1;
     transition: .25s ease;
     transform: translate(0, 0);
 }
+
 .add-company-btn:hover:before {
     transform: translate(4px, 4px);
 }
@@ -114,11 +124,11 @@ background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%
     
 }
 .loading-button div{
+    color: white;
     border-bottom: 1px solid transparent;
  }
 
 .loading-button:hover div{
-   color: white;
    border-bottom: 1px solid #fff;
    
 }
@@ -174,10 +184,11 @@ thead th{
     color: white;
     background: #22c1c3;
     padding: 2% 0 2% 0;
-    border-radius: 0.5vw;
+    /* border-radius: 0.5vw; */
 }
 .table-company td{
     background: #fdbb2d;
+    color: white;
 }
 thead th:last-child, .table-company td:last-child{
     background: #fff;

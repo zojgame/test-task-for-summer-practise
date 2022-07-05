@@ -27,23 +27,20 @@ function SaveForm({companies, setCompanies, setEditingId, editingId}: EditingFor
   const newFields = dataList?.querySelectorAll('input');
   const newFieldsArray : string[] = [];
   newFields?.forEach((field) => newFieldsArray.push(field.value));
-  const isAnyFieldEmpty = newFieldsArray.some((el) => el === '');//
   const newCompanies = companies.filter((com) =>
-    (com.id === editingId)
+    (com.id !== editingId)
   );
-  if(!isAnyFieldEmpty) {
-    const company : TableFields = {
-      name: newFieldsArray[0],
-      adress: newFieldsArray[1],
-      restrictions: newFieldsArray[2],
-      inn: newFieldsArray[3],
-      dateReg: newFieldsArray[4],
-      id: nanoid()
-    };
+  const company : TableFields = {
+    name: newFieldsArray[0],
+    adress: newFieldsArray[1],
+    restrictions: newFieldsArray[2],
+    inn: newFieldsArray[3],
+    dateReg: newFieldsArray[4],
+    id: nanoid()
+  };
 
-    setEditingId('');
-    setCompanies([...newCompanies, company]);
-  }
+  setEditingId('');
+  setCompanies([...newCompanies, company]);
 }
 
 export default EditingForm;
