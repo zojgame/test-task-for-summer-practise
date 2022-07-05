@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+
 import TableFields from '../types/table-fields';
 import DeleteButton from './delete-button';
 import { SetStateAction } from 'react';
@@ -11,16 +11,33 @@ type TableCompanyProps = {
     setEditingId: React.Dispatch<React.SetStateAction<string>>
 }
 
-function TableCompany({companies, setCompanies, editingId, setEditingId} : TableCompanyProps):JSX.Element {
+type GetDataProps = {
+  url: string,
+  options: RequestInit,
+   company: TableFields,
+    companies: TableFields[],
+  setCompanies: React.Dispatch<SetStateAction<TableFields[]>>,
+  setEditingId : React.Dispatch<React.SetStateAction<string>>
+}
 
+type ReadOnlyFormProps = {
+  company: TableFields,
+   companies: TableFields[],
+  setCompanies: React.Dispatch<SetStateAction<TableFields[]>>,
+   setEditingId : React.Dispatch<React.SetStateAction<string>>
+  }
+
+type LoadingDataProps = ReadOnlyFormProps;
+
+function TableCompany({companies, setCompanies, editingId, setEditingId} : TableCompanyProps):JSX.Element {
   const dataCompanies = companies.map((company) => {
     if(company.id === editingId){
       return (
         <EditingForm companies={companies} setCompanies={setCompanies}
           setEditingId={setEditingId}
           editingId={editingId}
-        />);
-    }
+        />);}
+
     return (
       <ReadOnlyForm company={company}
         companies={companies}
@@ -45,15 +62,12 @@ function TableCompany({companies, setCompanies, editingId, setEditingId} : Table
       <tbody>
         { dataCompanies }
       </tbody>
-
     </table>
   );
 }
 
 function ReadOnlyForm({company, companies, setCompanies, setEditingId}
-  : {company: TableFields, companies: TableFields[],
-    setCompanies: React.Dispatch<SetStateAction<TableFields[]>>,
-     setEditingId : React.Dispatch<React.SetStateAction<string>>}):JSX.Element{
+  : ReadOnlyFormProps):JSX.Element{
   return (
     <tr key={company.name}>
       <td>{company.name}</td>
@@ -72,24 +86,13 @@ function ReadOnlyForm({company, companies, setCompanies, setEditingId}
     </tr>
   );
 }
-function LoadingData({company, companies, setCompanies, setEditingId}
-  : {company: TableFields, companies: TableFields[],
-    setCompanies: React.Dispatch<SetStateAction<TableFields[]>>,
-     setEditingId : React.Dispatch<React.SetStateAction<string>>}):void{
+
+function LoadingData({company, companies, setCompanies, setEditingId}: LoadingDataProps):void
+{
   if(company !== undefined){
     const url = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party';
     const token = '276faa992d9b2ca36a9a77a55c00486884039813';
     const query = company.inn;
-
-    const newCompany : TableFields = {
-      name : '',
-      adress : '',
-      restrictions : '',
-      inn: '',
-      dateReg: '',
-      id: ''
-    };
-
     const options: RequestInit = {
       method: 'POST',
       mode: 'cors',
@@ -101,22 +104,34 @@ function LoadingData({company, companies, setCompanies, setEditingId}
       body: JSON.stringify({query: query})
     };
 
-    fetch(url, options)
-      .then((response) => response.json())
-      .then((res) => {newCompany.name = res.suggestions[0].value;
-        newCompany.adress = res.suggestions[0].data.address.unrestricted_value;
-        newCompany.restrictions = res.suggestions[0].data.ogrn;
-        newCompany.dateReg = new Date(res.suggestions[0].data.state.registration_date).toISOString();
-        newCompany.id = company.id;
-        newCompany.inn = company.inn;})
-      .finally(() => {
-        const newCompanies = companies.filter((com)=> com.id !== company.id);
-        companies = [...newCompanies, newCompany];
-        setEditingId('');
-        setCompanies(companies);
-        console.log(companies);
-      });
+    GetData({url, options, company, companies, setCompanies, setEditingId});
   }
+}
+
+function GetData({url, options, company, companies, setCompanies, setEditingId}: GetDataProps){
+  const newCompany : TableFields = {
+    name : '',
+    adress : '',
+    restrictions : '',
+    inn: '',
+    dateReg: '',
+    id: ''
+  };
+
+  fetch(url, options)
+    .then((response) => response.json())
+    .then((res) => {newCompany.name = res.suggestions[0].value;
+      newCompany.adress = res.suggestions[0].data.address.unrestricted_value;
+      newCompany.restrictions = res.suggestions[0].data.ogrn;
+      newCompany.dateReg = new Date(res.suggestions[0].data.state.registration_date).toISOString();
+      newCompany.id = company.id;
+      newCompany.inn = company.inn;})
+    .finally(() => {
+      const newCompanies = companies.filter((com)=> com.id !== company.id);
+      companies = [...newCompanies, newCompany];
+      setEditingId('');
+      setCompanies(companies);
+    });
 }
 
 export default TableCompany;

@@ -4,8 +4,7 @@ import { SetStateAction } from 'react';
 type DeleteButtonProps = {
   id: string,
   companies : TableFields[],
-  setCompanies : React.Dispatch<SetStateAction<TableFields[]>>,
-
+  setCompanies : React.Dispatch<SetStateAction<TableFields[]>>
 }
 
 function DeleteButton({id, companies, setCompanies} : DeleteButtonProps):JSX.Element{
@@ -14,6 +13,7 @@ function DeleteButton({id, companies, setCompanies} : DeleteButtonProps):JSX.Ele
       <div>Удалить</div>
     </button>);
 }
+
 function DeleteCompany({id, companies, setCompanies} : DeleteButtonProps):void{
   const updatedCompanies = companies.filter((company) => company.id !== id);
   setCompanies(updatedCompanies);
