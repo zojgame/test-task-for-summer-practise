@@ -1,0 +1,69 @@
+.table-company{
+    margin: auto;
+    text-align: center;
+}
+
+.add-company-btn {
+    display: block;
+    margin: auto;
+    margin-bottom: 2%;
+    margin-top: 2%;
+    outline: none; 
+}
+
+.modal {
+    height: 30vw;
+    width: 30vw;
+    transform: scale(0);
+    margin: auto;
+    margin-top: 2%;
+    border-radius: 5vw;
+}
+
+.modal.active{
+background: rgb(34,193,195);
+background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+    transform: scale(1);    
+}
+.model_content{
+    color: white;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+.close-button{
+   color: white;
+    margin: 6% 0 0 86%;
+    background-color: black;
+    border-color: white;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.data-list{
+    padding-left: 5%;
+}
+.data-list  input{
+    margin-bottom: 2vw;
+    border: none;
+    border-radius:0 10px 10px 0;   
+    
+}
+
+.add_button{
+    border: none; 
+    outline: none;
+    display: block;
+    margin: auto;
+    padding: 4%;
+    border-radius: 25vw;
+    color: white;
+    background: rgb(0,0,0);
+}
+
+.action-buttons button{
+    margin-left: 2vw;
+}
+
+.loading-button{
+    display: block;
+}
