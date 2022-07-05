@@ -18,7 +18,7 @@ function EditingForm({companies, setCompanies, setEditingId, editingId} : Editin
       <td><input placeholder="введите огр" defaultValue={editingCompany.restrictions}/></td>
       <td><input placeholder="введите инн" defaultValue={editingCompany.inn}/></td>
       <td><input type='date' defaultValue={editingCompany.dateReg}/></td>
-      <td>{<button onClick={() => SaveForm({companies, setCompanies, setEditingId, editingId})}>Сохранить</button>}</td>
+      <td>{<button onClick={() => SaveForm({companies, setCompanies, setEditingId, editingId})} className='save-btn'>Сохранить</button>}</td>
     </tr>);
 }
 

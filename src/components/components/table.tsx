@@ -32,15 +32,20 @@ function TableCompany({companies, setCompanies, editingId, setEditingId} : Table
 
   return (
     <table border={1} className='table-company'>
-      <tr>
-        <th>Наименование</th>
-        <th>Адрес</th>
-        <th>ОГРН</th>
-        <th>Инн</th>
-        <th>Дата Регистрации</th>
-        <th>Действия</th>
-      </tr>
-      { dataCompanies }
+      <thead>
+        <tr>
+          <th>Наименование</th>
+          <th>Адрес</th>
+          <th>ОГРН</th>
+          <th>Инн</th>
+          <th>Дата Регистрации</th>
+          <th className='table-actions'></th>
+        </tr>
+      </thead>
+      <tbody>
+        { dataCompanies }
+      </tbody>
+
     </table>
   );
 }
@@ -54,10 +59,15 @@ function ReadOnlyForm({company, companies, setCompanies, setEditingId}
       <td>{company.name}</td>
       <td>{company.adress}</td>
       <td>{company.restrictions}</td>
-      <td><p className='inn-value'>{company.inn}</p><button className='loading-button' onClick={() => LoadingData({company, setCompanies, companies, setEditingId})}>Загрузить</button></td>
+      <td><p className='inn-value'>{company.inn}</p>
+        <button className='loading-button' onClick={() =>
+          LoadingData({company, setCompanies, companies, setEditingId})}
+        ><div>Загрузить</div>
+        </button>
+      </td>
       <td>{company.dateReg}</td>
-      <td className='action-buttons'>{<DeleteButton id={company.id} companies={companies} setCompanies={setCompanies}/>}
-        <button onClick={() => setEditingId(company.id)}>Изменить</button>
+      <td className='action-buttons table-actions'>{<DeleteButton id={company.id} companies={companies} setCompanies={setCompanies}/>}
+        <button onClick={() => setEditingId(company.id)} className='change-button'>Изменить</button>
       </td>
     </tr>
   );
@@ -66,13 +76,12 @@ function LoadingData({company, companies, setCompanies, setEditingId}
   : {company: TableFields, companies: TableFields[],
     setCompanies: React.Dispatch<SetStateAction<TableFields[]>>,
      setEditingId : React.Dispatch<React.SetStateAction<string>>}):void{
-  // GetApiData(company, setCompanies, companies, setEditingId);
   if(company !== undefined){
     const url = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party';
     const token = '276faa992d9b2ca36a9a77a55c00486884039813';
     const query = company.inn;
-    // const query = '7707083893';
-    const newCompany = {
+
+    const newCompany : TableFields = {
       name : '',
       adress : '',
       restrictions : '',

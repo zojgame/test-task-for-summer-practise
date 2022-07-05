@@ -10,8 +10,8 @@ type DeleteButtonProps = {
 
 function DeleteButton({id, companies, setCompanies} : DeleteButtonProps):JSX.Element{
   return (
-    <button onClick={() => DeleteCompany({id, companies, setCompanies})}>
-        Удалить
+    <button onClick={() => DeleteCompany({id, companies, setCompanies})} className='delete-button'>
+      <div>Удалить</div>
     </button>);
 }
 function DeleteCompany({id, companies, setCompanies} : DeleteButtonProps):void{
