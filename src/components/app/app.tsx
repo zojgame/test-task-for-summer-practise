@@ -8,13 +8,14 @@ import { nanoid } from '@reduxjs/toolkit';
 function App(): JSX.Element {
   const [modalActive, setModalActive] = useState(false);
   const firstCompany : TableFields = {
-    name: 'Данил',
-    adress: 'Коминтерна 5',
-    restrictions: 'Нет',
-    inn: '7707083893',
-    dateReg: '12.20.2001',
+    name: 'ТПО ПАО "РОСТЕЛЕКОМ"-УРАЛ',
+    adress: '620067, Свердловская обл, г Екатеринбург, Кировский р-н, Асбестовский пер, д 4А',
+    restrictions: '1045900001641',
+    inn: '5902709482',
+    dateReg: '2004-04-26T00:00:00.000Z',
     id: nanoid()
   };
+  //7707083893
   const [companies, setCompanies] = useState([firstCompany]);
   const [editingId, setEditingId] = useState('');
 
