@@ -11,27 +11,20 @@ type TableCompanyProps = {
     setEditingId: React.Dispatch<React.SetStateAction<string>>
 }
 
-type GetDataProps = {
-  url: string,
-  options: RequestInit,
-   company: TableFields,
-    companies: TableFields[],
-  setCompanies: React.Dispatch<SetStateAction<TableFields[]>>
-}
-
-type ReadOnlyFormProps = {
-  company: TableFields,
-   companies: TableFields[],
-  setCompanies: React.Dispatch<SetStateAction<TableFields[]>>,
-   setEditingId : React.Dispatch<React.SetStateAction<string>>
-  }
-
 type LoadingDataProps = {
   company: TableFields,
-   companies: TableFields[],
+  companies: TableFields[],
   setCompanies: React.Dispatch<SetStateAction<TableFields[]>>,
-  //  setEditingId : React.Dispatch<React.SetStateAction<string>>
-  };
+};
+
+type GetDataProps = LoadingDataProps & {
+  url: string,
+  options: RequestInit,
+}
+
+type ReadOnlyFormProps = LoadingDataProps & {
+  setEditingId : React.Dispatch<React.SetStateAction<string>>
+}
 
 function TableCompany({companies, setCompanies, editingId, setEditingId} : TableCompanyProps):JSX.Element {
   const dataCompanies = companies.map((company) => {

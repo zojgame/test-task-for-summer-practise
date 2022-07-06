@@ -21,7 +21,7 @@ function App(): JSX.Element {
 
   return (
     <>
-      <AddButton modalActive={modalActive} setModalActive={setModalActive}/>
+      <AddButton setModalActive={setModalActive}/>
       <TableCompany
         companies={companies}
         setCompanies={setCompanies}

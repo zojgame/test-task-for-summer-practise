@@ -4,16 +4,14 @@ import { SetStateAction } from 'react';
 import TableFields from '../types/table-fields';
 import CloseButtonComponent from './close-button';
 
-type ModalProps = {
-    active : boolean,
-    setActive : React.Dispatch<SetStateAction<boolean>>,
-    companies : TableFields[],
-    setCompanies : React.Dispatch<SetStateAction<TableFields[]>>,
-}
-
 type UpdateCompaniesListProps = {
   companies : TableFields[],
   setCompanies : React.Dispatch<SetStateAction<TableFields[]>>
+}
+
+type ModalProps = UpdateCompaniesListProps & {
+    active : boolean,
+    setActive : React.Dispatch<SetStateAction<boolean>>
 }
 
 function Modal({active, setActive, companies, setCompanies} : ModalProps):JSX.Element {

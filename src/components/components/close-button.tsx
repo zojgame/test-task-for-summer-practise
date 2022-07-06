@@ -1,4 +1,5 @@
 import { SetStateAction } from 'react';
+
 type CloseButtonComponentProps ={
     setActive:React.Dispatch<SetStateAction<boolean>>
 }
