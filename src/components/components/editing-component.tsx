@@ -3,7 +3,7 @@ import { SetStateAction } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 
 type EditingFormProps = {
-  companies : TableFields[],
+    companies : TableFields[],
     setCompanies: React.Dispatch<SetStateAction<TableFields[]>>,
     setEditingId: React.Dispatch<React.SetStateAction<string>>,
     editingId: string

@@ -4,18 +4,16 @@ import DeleteButton from './delete-button';
 import { SetStateAction } from 'react';
 import EditingForm from './editing-component';
 
-type TableCompanyProps = {
-    companies : TableFields[],
-    setCompanies: React.Dispatch<SetStateAction<TableFields[]>>,
-    editingId: string,
-    setEditingId: React.Dispatch<React.SetStateAction<string>>
-}
-
 type LoadingDataProps = {
   company: TableFields,
   companies: TableFields[],
   setCompanies: React.Dispatch<SetStateAction<TableFields[]>>,
 };
+
+type TableCompanyProps = Omit<LoadingDataProps, 'company'> & {
+    editingId: string,
+    setEditingId: React.Dispatch<React.SetStateAction<string>>
+}
 
 type GetDataProps = LoadingDataProps & {
   url: string,
